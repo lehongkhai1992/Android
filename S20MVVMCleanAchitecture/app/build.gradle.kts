@@ -35,6 +35,7 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
     buildFeatures {
         buildConfig = true
@@ -81,7 +82,7 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.28.3")
 
     //glide
-    implementation("com.github.bumptech.glide:2.28.3")
-    kapt("com.github.bumptech.glide:compiler:2.28.3")
+//    implementation("com.github.bumptech.glide:2.28.3")
+//    kapt("com.github.bumptech.glide:compiler:2.28.3")
 
 }
