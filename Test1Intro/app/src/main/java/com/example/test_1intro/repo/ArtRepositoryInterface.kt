@@ -9,11 +9,12 @@ import retrofit2.http.Query
 
 interface ArtRepositoryInterface {
 
-    suspend fun insertArt(art: Art)
+    suspend fun insertArt(art : Art)
 
     suspend fun deleteArt(art: Art)
 
-    fun getArts():LiveData<List<Art>>
+    fun getArt() : LiveData<List<Art>>
 
-    suspend fun imageSearch(searchQuery: String): Resource<ImageResponse>
+    suspend fun searchImage(imageString : String) : Resource<ImageResponse>
+
 }

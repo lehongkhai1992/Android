@@ -5,13 +5,14 @@
     android:layout_height="match_parent">
 
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/searchText"
         android:hint="search art"
         android:textSize="20dp"
         android:layout_width="match_parent"

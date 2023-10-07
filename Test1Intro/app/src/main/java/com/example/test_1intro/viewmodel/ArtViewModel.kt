@@ -3,22 +3,23 @@ package com.example.test_1intro.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.test_1intro.model.data.ImageResponse
 import com.example.test_1intro.model.util.Resource
 import com.example.test_1intro.repo.ArtRepositoryInterface
 import com.example.test_1intro.room.Art
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class ArtBookViewModel @ViewModelScoped constructor(
+@HiltViewModel
+class ArtViewModel @Inject constructor(
     private val artRepository: ArtRepositoryInterface
 ) : ViewModel() {
 
-    val artList = artRepository.getArts()
+    val artList = artRepository.getArt()
 
     //image Api fragment
     private val _images = MutableLiveData<Resource<ImageResponse>>()
@@ -54,7 +55,7 @@ class ArtBookViewModel @ViewModelScoped constructor(
         if (name.isEmpty() || artistName.isEmpty() || year.isEmpty()) {
             insertArtMsg.postValue(
                 Resource.error(
-                    "please enter name, artisname, year correctly",
+                    "please enter name, artist name, year correctly",
                     null
                 )
             )
@@ -77,7 +78,7 @@ class ArtBookViewModel @ViewModelScoped constructor(
         }
         _images.value = Resource.loading(null)
         viewModelScope.launch {
-            val response = artRepository.imageSearch(searchQuery)
+            val response = artRepository.searchImage(searchQuery)
             _images.value = response
         }
     }

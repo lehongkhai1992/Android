@@ -9,6 +9,6 @@ data class Art(
     var id: Int? = null,
     var name: String,
     var artistName: String,
-    var year: String,
+    var year: Int,
     var imageUrl: String,
 )

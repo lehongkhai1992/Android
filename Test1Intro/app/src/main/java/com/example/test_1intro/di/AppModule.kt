@@ -7,6 +7,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.s16mvvmcleanachitecture.R
 import com.example.test_1intro.api.ArtRetrofitAPI
 import com.example.test_1intro.model.util.Util.BASE_URL
+import com.example.test_1intro.repo.ArtRepository
+import com.example.test_1intro.repo.ArtRepositoryInterface
+import com.example.test_1intro.room.ArtDao
 import com.example.test_1intro.room.ArtDataBase
 import dagger.Module
 import dagger.Provides
@@ -42,6 +45,10 @@ class AppModule {
             .build()
             .create(ArtRetrofitAPI::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun injectNormalRepo (dao: ArtDao, api: ArtRetrofitAPI) = ArtRepository(dao, api) as ArtRepositoryInterface
 
     @Singleton
     @Provides

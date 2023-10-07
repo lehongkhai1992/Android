@@ -13,9 +13,9 @@ import com.example.s16mvvmcleanachitecture.R
 import com.example.test_1intro.room.Art
 import javax.inject.Inject
 
-class ArtRecycleViewAdapter @Inject constructor(
+class ArtRecyclerAdapter @Inject constructor(
     private val glide: RequestManager
-) :RecyclerView.Adapter<ArtRecycleViewAdapter.ArtViewHolder>(){
+) : RecyclerView.Adapter<ArtRecyclerAdapter.ArtViewHolder>(){
     private val diffUtil = object : DiffUtil.ItemCallback<Art>(){
         override fun areItemsTheSame(oldItem: Art, newItem: Art): Boolean {
             return oldItem == newItem
@@ -31,7 +31,7 @@ class ArtRecycleViewAdapter @Inject constructor(
         set(value) = recycleListDiffer.submitList(value)
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtRecyclerAdapter.ArtViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.art_row, parent, false)
         return ArtViewHolder(view)
     }
@@ -49,10 +49,10 @@ class ArtRecycleViewAdapter @Inject constructor(
         holder.itemView.apply {
             nameText.text = art.name
             artistNameText.text = art.artistName
-            yearText.text = art.year
+            yearText.text = art.year.toString()
             glide.load(art.imageUrl).into(imageView)
         }
 
     }
-    class ArtViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
+    class ArtViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 }
