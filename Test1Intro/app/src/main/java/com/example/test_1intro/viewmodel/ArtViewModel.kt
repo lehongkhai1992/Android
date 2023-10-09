@@ -4,84 +4,79 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.test_1intro.model.data.ImageResponse
-import com.example.test_1intro.model.util.Resource
+import com.example.test_1intro.model.ImageResponse
 import com.example.test_1intro.repo.ArtRepositoryInterface
-import com.example.test_1intro.room.Art
+import com.example.test_1intro.roomdb.Art
+import com.example.test_1intro.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class ArtViewModel @Inject constructor(
-    private val artRepository: ArtRepositoryInterface
+        private val repository : ArtRepositoryInterface
 ) : ViewModel() {
 
-    val artList = artRepository.getArt()
+    val artList = repository.getArt()
 
-    //image Api fragment
-    private val _images = MutableLiveData<Resource<ImageResponse>>()
-    val imagesList: LiveData<Resource<ImageResponse>>
-        get() = _images
+    private val images = MutableLiveData<Resource<ImageResponse>>()
+    val imageList : LiveData<Resource<ImageResponse>>
+        get() = images
 
     private val selectedImage = MutableLiveData<String>()
-    val selectedImageUrl: LiveData<String>
+    val selectedImageUrl : LiveData<String>
         get() = selectedImage
 
-    //art Details Fragment
     private var insertArtMsg = MutableLiveData<Resource<Art>>()
-    val insertArtMessage: LiveData<Resource<Art>>
+    val insertArtMessage : LiveData<Resource<Art>>
         get() = insertArtMsg
 
+    //Solving the navigation bug
     fun resetInsertArtMsg() {
         insertArtMsg = MutableLiveData<Resource<Art>>()
     }
 
-    fun setSelectedImage(url: String) {
+    fun setSelectedImage(url : String) {
         selectedImage.postValue(url)
     }
 
     fun deleteArt(art: Art) = viewModelScope.launch {
-        artRepository.deleteArt(art)
+            repository.deleteArt(art)
     }
 
     fun insertArt(art: Art) = viewModelScope.launch {
-        artRepository.insertArt(art)
+            repository.insertArt(art)
     }
 
-    fun makeArt(name: String, artistName: String, year: String) {
-        if (name.isEmpty() || artistName.isEmpty() || year.isEmpty()) {
-            insertArtMsg.postValue(
-                Resource.error(
-                    "please enter name, artist name, year correctly",
-                    null
-                )
-            )
+    fun makeArt(name : String, artistName : String, year : String) {
+        if (name.isEmpty() || artistName.isEmpty() || year.isEmpty() ) {
+            insertArtMsg.postValue(Resource.error("Enter name, artist, year", null))
+            return
         }
         val yearInt = try {
             year.toInt()
         } catch (e: Exception) {
-            insertArtMsg.postValue(Resource.error("please year correctly", null))
+            insertArtMsg.postValue(Resource.error("Year should be number",null))
             return
         }
-        val art = Art(0, name, artistName, yearInt, selectedImage.value ?: "")
+
+        val art = Art(name, artistName, yearInt,selectedImage.value?: "")
         insertArt(art)
         setSelectedImage("")
         insertArtMsg.postValue(Resource.success(art))
     }
 
-    fun searchForImage(searchQuery: String) {
-        if (searchQuery.isEmpty()) {
+    fun searchForImage (searchString : String) {
+
+        if(searchString.isEmpty()) {
             return
         }
-        _images.value = Resource.loading(null)
+        images.value = Resource.loading(null)
         viewModelScope.launch {
-            val response = artRepository.searchImage(searchQuery)
-            _images.value = response
+            val response = repository.searchImage(searchString)
+            images.value = response
         }
     }
-
 
 }

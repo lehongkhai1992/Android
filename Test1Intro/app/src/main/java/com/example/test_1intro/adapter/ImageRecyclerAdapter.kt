@@ -1,4 +1,4 @@
-package com.example.test_1intro.Adapter
+package com.example.test_1intro.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,7 @@ import com.example.s16mvvmcleanachitecture.R
 import javax.inject.Inject
 
 class ImageRecyclerAdapter @Inject constructor(
-    val glide : RequestManager
+        val glide : RequestManager
 ) : RecyclerView.Adapter<ImageRecyclerAdapter.ImageViewHolder>() {
 
     private var onItemClickListener : ((String) -> Unit)? = null

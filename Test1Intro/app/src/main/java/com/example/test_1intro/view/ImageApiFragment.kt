@@ -10,67 +10,87 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.test_1intro.adapter.ImageRecyclerAdapter
+import com.example.test_1intro.util.Status
+import com.example.test_1intro.viewmodel.ArtViewModel
 import com.example.s16mvvmcleanachitecture.R
 import com.example.s16mvvmcleanachitecture.databinding.FragmentImageApiBinding
-import com.example.test_1intro.Adapter.ImageRecyclerAdapter
-import com.example.test_1intro.model.util.Status
-import com.example.test_1intro.viewmodel.ArtViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ImageApiFragment @Inject constructor(
-    private val imageRecyclerAdapter: ImageRecyclerAdapter
-):Fragment(R.layout.fragment_image_api) {
-    private lateinit var viewModel: ArtViewModel
-    private lateinit var binding: FragmentImageApiBinding
+        val imageRecyclerAdapter: ImageRecyclerAdapter
+) : Fragment(R.layout.fragment_image_api) {
+
+    //private val viewModel: ArtViewModel by activityViewModels()
+    lateinit var viewModel : ArtViewModel
+
+    private var fragmentBinding : FragmentImageApiBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ArtViewModel::class.java)
-        binding = FragmentImageApiBinding.bind(view)
-        var job : Job? = null
 
-        subscriberToObservers()
+        val binding = FragmentImageApiBinding.bind(view)
+        fragmentBinding = binding
+
+        var job: Job? = null
 
         binding.searchText.addTextChangedListener {
             job?.cancel()
             job = lifecycleScope.launch {
                 delay(1000)
                 it?.let {
-                    viewModel.searchForImage(it.toString())
+                   if (it.toString().isNotEmpty()) {
+                       viewModel.searchForImage(it.toString())
+                   }
                 }
             }
         }
 
-        binding.imageRecycleView.adapter = imageRecyclerAdapter
-        binding.imageRecycleView.layoutManager = GridLayoutManager(requireContext(), 3)
+        subscribeToObservers()
+
+        binding.imageRecyclerView.adapter = imageRecyclerAdapter
+        binding.imageRecyclerView.layoutManager = GridLayoutManager(requireContext(),3)
+
         imageRecyclerAdapter.setOnItemClickListener {
             findNavController().popBackStack()
             viewModel.setSelectedImage(it)
         }
+
     }
 
-    fun subscriberToObservers(){
-        viewModel.imagesList.observe(viewLifecycleOwner, Observer {
-            when(it.status){
+    private fun subscribeToObservers() {
+        viewModel.imageList.observe(viewLifecycleOwner, Observer {
+            when(it.status) {
                 Status.SUCCESS -> {
-                    val urls = it.data?.hits?.map {imageResult->
-                        imageResult.previewURL
-                    }
-                    imageRecyclerAdapter.images = urls?: listOf()
-                    binding?.progressBar?.visibility  = View.GONE
+                    val urls = it.data?.hits?.map { imageResult ->  imageResult.previewURL }
+                    imageRecyclerAdapter.images = urls ?: listOf()
+                    fragmentBinding?.progressBar?.visibility = View.GONE
+
                 }
-                Status.LOADING -> {
-                    Toast.makeText(requireContext(), it.message?:"Error", Toast.LENGTH_LONG).show()
-                    binding?.progressBar?.visibility  = View.VISIBLE
-                }
+
                 Status.ERROR -> {
-                    binding?.progressBar?.visibility  = View.VISIBLE
+                    Toast.makeText(requireContext(),it.message ?: "Error",Toast.LENGTH_LONG).show()
+                    fragmentBinding?.progressBar?.visibility = View.GONE
+
+                }
+
+                Status.LOADING -> {
+                    fragmentBinding?.progressBar?.visibility = View.VISIBLE
+
                 }
             }
+
         })
+    }
+
+    override fun onDestroyView() {
+        fragmentBinding = null
+        super.onDestroyView()
     }
 }

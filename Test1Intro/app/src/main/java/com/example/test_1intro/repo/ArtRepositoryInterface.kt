@@ -1,11 +1,9 @@
 package com.example.test_1intro.repo
 
 import androidx.lifecycle.LiveData
-import com.example.test_1intro.model.data.ImageResponse
-import com.example.test_1intro.model.util.Resource
-import com.example.test_1intro.room.Art
-import retrofit2.Response
-import retrofit2.http.Query
+import com.example.test_1intro.model.ImageResponse
+import com.example.test_1intro.roomdb.Art
+import com.example.test_1intro.util.Resource
 
 interface ArtRepositoryInterface {
 

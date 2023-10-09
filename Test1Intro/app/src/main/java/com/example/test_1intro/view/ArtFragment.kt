@@ -9,18 +9,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.test_1intro.adapter.ArtRecyclerAdapter
+import com.example.test_1intro.viewmodel.ArtViewModel
 import com.example.s16mvvmcleanachitecture.R
 import com.example.s16mvvmcleanachitecture.databinding.FragmentArtsBinding
-import com.example.test_1intro.Adapter.ArtRecyclerAdapter
-import com.example.test_1intro.viewmodel.ArtViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ArtFragment @Inject constructor(
-    val artRecyclerAdapter: ArtRecyclerAdapter
-) : Fragment(R.layout.fragment_arts) {
+        val artRecyclerAdapter: ArtRecyclerAdapter
+        ) : Fragment(R.layout.fragment_arts) {
 
     //private val viewModel: ArtViewModel by viewModels()
     //private val viewModel: ArtViewModel by activityViewModels()
@@ -51,13 +52,13 @@ class ArtFragment @Inject constructor(
 
         subscribeToObservers()
 
-        binding.recyclerView.adapter = artRecyclerAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        ItemTouchHelper(swipeCallBack).attachToRecyclerView(binding.recyclerView)
+        binding.recyclerViewArt.adapter = artRecyclerAdapter
+        binding.recyclerViewArt.layoutManager = LinearLayoutManager(requireContext())
+        ItemTouchHelper(swipeCallBack).attachToRecyclerView(binding.recyclerViewArt)
 
-        binding.floatingActionButton.setOnClickListener {
+        binding.fab.setOnClickListener {
             findNavController().navigate(
-                ArtFragmentDirections.actionArtFragmentToArtDetailsFragment()
+                    ArtFragmentDirections.actionArtFragmentToArtDetailsFragment()
             )
         }
 
