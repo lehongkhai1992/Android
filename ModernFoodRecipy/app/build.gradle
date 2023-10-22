@@ -67,9 +67,6 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil:2.4.0")
 
-    // shimmer
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
 
     /*retrofit*/
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
