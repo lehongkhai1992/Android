@@ -103,3 +103,95 @@ it need to some steps
     class Migration4to5: AutoMigrationSpec
 
 # delete the field in data class
+
+
+
+### Jira
+
+### Scrum agile
+
+# nguyên tắc của agile
+AGILE PRINCIPLES
+▪ Iterative development
+khuyến khích việc phát triển sản phẩm thông qua các chu kỳ phát triển ngắn, 
+gọi là "iterations" hoặc "sprints". Mỗi iteration tập trung vào việc tạo ra 
+một phiên bản hoạt động của sản phẩm có thể triển khai và đánh giá.
+
+
+▪ Adaptive to changing requirements
+
+"Adaptive to changing requirements" (Thích ứng với yêu cầu thay đổi) trong Agile 
+thể hiện tư duy linh hoạt và khả năng thích ứng của quá trình phát triển
+
+
+▪ Frequent delivery
+
+▪ Close collaboration between cross-functional teams
+nhấn mạnh tầm quan trọng của việc các teams (cross-functional teams) 
+làm việc cùng nhau và hợp tác chặt chẽ để đạt được mục tiêu của dự án.
+
+"The most efficient and effective method of conveying information to and 
+within a development team is face-to-face conversation."
+
+Nguyên tắc này đặt sự tập trung vào việc tạo ra môi trường làm việc nơi 
+mà sự giao tiếp trực tiếp, tương tác trực tiếp giữa các thành viên của đội là ưu tiên hàng đầu.
+
+- Phản hồi nhanh chóng
+- Hiệu suất tối đa
+
+
+▪ SCRUM methodologies
+SCRUM là một framework quản lý dự án phát triển dựa trên nguyên tắc Agile
+- Phân chia dự án thành các chu kỳ ngắn (Sprints): SCRUM chia dự án thành các đợt ngắn gọi là sprints, 
+thường kéo dài từ 1 đến 4 tuần.
+- Quản lý bằng Product Backlog và Sprint Backlog: Các yêu cầu được tổ chức trong Product Backlog, 
+và mỗi Sprint được chọn một phần của Product Backlog để thực hiện trong Sprint Backlog.
+- Các vai trò quan trọng: SCRUM có các vai trò như Product Owner, Scrum Master, và Development Team, 
+mỗi vai trò có trách nhiệm riêng biệt trong quá trình phát triển.
+- Sự linh hoạt và thích ứng: SCRUM tập trung vào việc thích ứng với sự thay đổi, đánh giá sản phẩm 
+ở cuối mỗi Sprint để có thể thay đổi hướng phát triển.
+
+
+▪ Kanban methodologies
+Kanban là một phương pháp quản lý dự án và công việc dựa trên nguyên tắc về làm thế nào công việc 
+được thực hiện và theo dõi thông lượng làm việc.
+- Luồng công việc (Work Flow): Kanban tập trung vào việc quản lý và tối ưu hóa luồng công việc, 
+từ khi công việc được thêm vào hệ thống đến khi nó được hoàn thành.
+- Hạn chế công việc đồng thời (Work In Progress - WIP): Kanban áp dụng nguyên tắc hạn chế 
+công việc đồng thời để giữ cho công việc luôn được ưu tiên và không bị quá tải.
+- Tối ưu hóa qua thời gian thực: Kanban không có khái niệm về sprints, 
+và công việc có thể được thực hiện và triển khai bất cứ khi nào nó sẵn sàng.
+- Hệ thống bảng Kanban: Sử dụng bảng Kanban với các cột thể hiện các 
+trạng thái của công việc để theo dõi quá trình làm việc.
+
+Sự Tương Đồng và Khác Biệt:
+Sự Tương Đồng: Cả SCRUM và Kanban đều tập trung vào việc cung cấp giá trị liên tục và linh hoạt đối với sự thay đổi.
+Khác Biệt: SCRUM chia dự án thành các chu kỳ đặc trưng (sprints) và có cấu trúc nhất định với các 
+sự kiện và vai trò cụ thể. Trong khi đó, Kanban tập trung vào tối ưu hóa quy trình công việc và không có khái niệm về các chu kỳ cố định.
+
+# Jira
+
+backlog
+kanban
+search
+filter: access by ...
+create issue, log a bugs
+dashboard
+link issues
+
+
+
+Create dashboard and kanban board in Jira
+
+Tip and trick for work
+
+
+
+chat private or group chat
+
+received tasks
+
+
+# search jira
+https://support.atlassian.com/jira-software-cloud/docs/what-is-advanced-search-in-jira-cloud/
+
